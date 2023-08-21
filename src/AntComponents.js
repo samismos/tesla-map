@@ -117,7 +117,7 @@ function FlagCard({ selectedCountry }) {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`http://localhost:3100/get-country-flag?selectedCountry=${selectedCountry}`)
+    axios.get(`http://192.168.0.71:3100/get-country-flag?selectedCountry=${selectedCountry}`)
       .then((response) => {
         setFlagInfo(response.data);
         setIsLoading(false);

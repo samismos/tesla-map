@@ -6,7 +6,31 @@ const app = express();
 const PORT = process.env.PORT || 3100;
 
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+
+/*
+const allowedOrigins = [
+  'http://192.168.0.71:3000',
+  'http://localhost:3000',
+  'http://192.168.0.132:3000' 
+];
+*/
+
+/*
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+*/
+
+const corsOptions = {
+  origin: '*',
+}
+app.use(cors(corsOptions));
 
 app.get('/get-country-flag', async (req, res) => {
   try {

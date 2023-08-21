@@ -163,7 +163,7 @@ const Map = () => {
         map.dragging.enable();
         map.scrollWheelZoom.enable();
       };
-    }, [isZooming, map]);
+    }, [map]);
 
     return null;
   }
@@ -192,7 +192,7 @@ const Map = () => {
           }}>Loading...</div>
         ) : (
           <>
-            {isGeoJsonReady && selectedCountryGeoJson && <GeoJSON data={selectedCountryGeoJson} key={JSON.stringify(selectedCountryGeoJson)} />}
+            {isGeoJsonReady &&  <GeoJSON data={selectedCountryGeoJson} key={JSON.stringify(selectedCountryGeoJson)} />}
             {selectedCountry && (
               <MarkerClusterGroup chunkedLoading>
                 {filteredStations.map((tesla) => (
