@@ -1,9 +1,10 @@
 import './Map.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Dropdown, Menu, Switch, Slider, Card } from 'antd';
-import { SearchOutlined } from "@ant-design/icons";
+import { Switch, Slider, Card } from 'antd';
 import { FaFlag } from 'react-icons/fa'; // For the flag icon
+import Select from 'react-select';
+
 
 const CountrySearchBar = ({ onSelectCountry, selectedCountry }) => {
   const [countries, setCountries] = useState([]);
@@ -35,36 +36,34 @@ const CountrySearchBar = ({ onSelectCountry, selectedCountry }) => {
   useEffect(() => {
     setSelectedOption(selectedCountry);
   }, [selectedCountry]);
+  
+  const countryOptions = countries.map((feature) => ({
+    value: feature.properties.ADMIN,
+    label: feature.properties.ADMIN
+  }));
 
-  /* Recommended way to use menu={menu} instead of deprecated overlay={menu}
-  --------------------------------------------------------
-    const menuItems = countries.map((feature) => ({
-    label: feature.properties.ADMIN,
-    key: feature.properties.ADMIN,
-    onClick: () => handleCountryChange(feature.properties.ADMIN),
-  })); 
-  --------------------------------------------------------
-  */
-
-  function WidgetMenu(props) {
-    return (
-      <Menu {...props} style={{ maxHeight: '300px', overflowY: 'scroll' }}>
-        {countries.map((feature) => (
-          <Menu.Item key={feature.properties.ADMIN} onClick={() => handleCountryChange(feature.properties.ADMIN)}>
-            {feature.properties.ADMIN}
-          </Menu.Item>
-        ))}
-      </Menu>
-    );
-  }
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: 'white', // Customize the background color of the control
+      width: '100%',
+      color: 'black',      
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? 'white' : 'black', // Customize the text color of options
+    }),
+    // Add more custom styles for other components as needed
+  };
 
   return (
     <div className="dropdown-container">
-      <Dropdown overlay={<WidgetMenu />} arrow={true} trigger={['click']}>
-        <Button icon={<SearchOutlined />}>
-          {selectedOption}
-        </Button>
-      </Dropdown>
+      <Select options={countryOptions} onChange={
+        (e) => {handleCountryChange(e.value);
+        }}
+        placeholder={selectedOption}
+        value={selectedOption}
+        styles={customStyles}/>
     </div>
   );
 };

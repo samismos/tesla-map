@@ -101,7 +101,7 @@ const Map = () => {
       const { lat, lng } = event.latlng;
       const clickedPoint = [lng, lat];
       // Find which country contains the clicked point
-      const clickedCountryFeature = geojsonData.features.find((feature) => {
+      const clickedCountryFeature = geojsonData?.features.find((feature) => {
         return booleanPointInPolygon(clickedPoint, feature.geometry);
       });
 
@@ -171,9 +171,10 @@ const Map = () => {
 
   return (
     <div className="map-container">
-
-      <><CountrySearchBar onSelectCountry={handleCountryChange} selectedCountry={selectedCountry}/></>
+      <div className="top-right-container">
       <><OpenStationSwitch onSwitchChange={handleShowOpenStationsChange} showOpenStations={showOpenStations}/></>
+      <><CountrySearchBar onSelectCountry={handleCountryChange} selectedCountry={selectedCountry}/></>
+      </div>
       <><ZoomSlider onZoomChange={setZoom} currentZoom={zoom} isZooming={isZooming}/></>
       <><FlagCard selectedCountry={selectedCountry}/></>
       <div>
