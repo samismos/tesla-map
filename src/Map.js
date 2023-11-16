@@ -97,7 +97,6 @@ const Map = () => {
 
   const handleMapClick = (event) => {
     if (event.latlng) {
-      //setPopupPosition(event.latlng);
       const { lat, lng } = event.latlng;
       const clickedPoint = [lng, lat];
       // Find which country contains the clicked point
@@ -113,14 +112,12 @@ const Map = () => {
   };
 
   const handleShowOpenStationsChange = (event) => {
-    //console.log('Event:', event);
     setShowOpenStations(event);
   };
 
   function MapEventHandlers() {
-    //Using isZooming flag to prevent rapid succession of zoom events,
-    //leading to error with undefined states
-
+    // Using isZooming flag to prevent rapid succession of zoom events,
+    // leading to error with undefined states
     const handleZoomStart = () => {
       setIsZooming(true);
     };
@@ -177,9 +174,6 @@ const Map = () => {
       </div>
       <><ZoomSlider onZoomChange={setZoom} currentZoom={zoom} isZooming={isZooming}/></>
       <><FlagCard selectedCountry={selectedCountry}/></>
-      <div>
-        {/*<LinkFetcher onDataFetched={handleLinkIdsFetched} />*/}
-      </div>
       <MapContainer center={mapCenter} key={zoom} zoom={zoom} minZoom={2} style={{ height: '95vh', width: '100%', margin: 'auto', verticalAlign: 'center' }}>
       <MapEventHandlers />
         <TileLayer
@@ -203,7 +197,6 @@ const Map = () => {
                 ))}
               </MarkerClusterGroup>
             )}
-
             <MapEvent handleMapClick={handleMapClick} />
           </>
         )}
